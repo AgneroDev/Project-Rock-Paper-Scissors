@@ -1,0 +1,72 @@
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+nav {
+  margin: 0 auto;
+  width: 500px;
+  text-align: center;
+  background-color: rgb(194, 39, 39);
+  border-radius: 10px;
+}
+
+.texte h1 {
+  margin-bottom: 0;
+  padding-top: 10px;
+  color: rgb(230, 222, 222);
+}
+.texte P {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  color: black;
+  font-weight: bold;
+}
+.card {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
+  width: 500px;
+}
+.card .btn {
+  margin-top: 15px;
+}
+.card .btn button {
+  padding: 30px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(86, 54, 173);
+  color: white;
+  font-weight: bold;
+}
+
+.btn button:hover {
+  background-color: brown;
+  color: black;
+}
+#resultat {
+  margin: 0 auto;
+  margin-top: 50px;
+  text-align: center;
+  width: 450px;
+  background-color: cadetblue;
+  padding: 20px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bolder;
+  display: none;
+}
+#resultatFin {
+  margin: 0 auto;
+  margin-top: 20px;
+  text-align: center;
+  width: 300px;
+  background-color: rgb(11, 64, 66);
+  padding: 10px;
+  border-radius: 20px;
+  color: rgb(78, 196, 43);
+  font-weight: bolder;
+  display: none;
+}

@@ -1,73 +1,94 @@
 let humanScore = 0;
 let computerScore = 0;
 
+let currentRound = 0;
+let MaxRounds = 5;
+
 function getComputerChoice() {
   let aleatoire = Math.floor(Math.random() * 3);
   if (aleatoire === 0) {
-    return "pierre";
+    return "rock";
   } else if (aleatoire === 1) {
-    return "papier";
+    return "paper";
   } else {
-    return "ciseaux";
+    return "scissors";
   }
 }
 
-function getHumanChoice() {
-  let choice = null;
-  do {
-    choice = prompt("faire un choix pierre, papier ou ciseaux", "");
-    if (choice !== null) {
-      choice = choice.trim().toLowerCase();
-    }
-  } while (
-    choice === null ||
-    (choice !== "pierre" && choice !== "papier" && choice !== "ciseaux")
-  );
-  return choice;
-}
-
-function playRound(humanChoice, computerChoice) {
+function playRound(humanChoice) {
+  const computerChoice = getComputerChoice();
   if (
-    (humanChoice === "pierre" && computerChoice === "ciseaux") ||
-    (humanChoice === "papier" && computerChoice === "pierre") ||
-    (humanChoice === "ciseaux" && computerChoice === "papier")
+    (humanChoice === "rock" && computerChoice === "scissors") ||
+    (humanChoice === "paper" && computerChoice === "rock") ||
+    (humanChoice === "scissors" && computerChoice === "paper")
   ) {
     humanScore++;
-    return "Tu gagnes ce tour !";
+    resultat = "Tu gagnes ce tour !";
   } else if (humanChoice === computerChoice) {
-    return "Égalité !";
+    resultat = "Égalité !";
   } else {
     computerScore++;
-    return "L'ordinateur gagne ce tour !";
+    resultat = "L'ordinateur gagne ce tour !";
   }
+
+  const resultatDiv = document.getElementById("resultat");
+  resultatDiv.innerHTML = `
+    <p>Joueur : ${humanChoice} | Ordinateur : ${computerChoice}</p>
+    <p>${resultat}</p>
+    <p>Score - Toi: ${humanScore} | Ordinateur: ${computerScore}</p>
+  `;
 }
 
-function playGame() {
-  humanScore = 0;
-  computerScore = 0;
+function endGame() {
+  const resultatFin = document.getElementById("resultatFin");
 
-  for (let i = 0; i < 5; i++) {
-    console.log("Tour numéro :", i + 1);
+  document.getElementById("rock").disabled = true;
+  document.getElementById("paper").disabled = true;
+  document.getElementById("scissors").disabled = true;
 
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-
-    const resultatTour = playRound(humanChoice, computerChoice);
-    console.log(
-      `Tu as choisi : ${humanChoice}, ordinateur a choisi : ${computerChoice}`
-    );
-    console.log(resultatTour);
-    console.log(
-      `Score actuel — Humain: ${humanScore} | Ordinateur: ${computerScore}`
-    );
-  }
-
+  let messagerFin = "";
   if (humanScore > computerScore) {
-    console.log("Tu as gagné la partie !");
+    messagerFin = "🎉 Tu as gagné la partie ! Bravo !";
   } else if (humanScore < computerScore) {
-    console.log("L'ordinateur a gagné la partie !");
+    messagerFin = "😞 L'ordinateur a gagné la partie !";
   } else {
-    console.log("Match nul !");
+    messagerFin = "🤝 Match nul !";
   }
+
+  resultatFin.innerHTML += `<p><strong>${messagerFin}</strong></p>`;
 }
-playGame();
+
+document.getElementById("rock").addEventListener("click", function () {
+  document.getElementById("resultat").style.display = "block";
+  if (currentRound < MaxRounds) {
+    playRound("rock");
+    currentRound++;
+  }
+  if (currentRound === MaxRounds) {
+    document.getElementById("resultatFin").style.display = "block";
+    endGame();
+  }
+});
+document.getElementById("paper").addEventListener("click", function () {
+  document.getElementById("resultat").style.display = "block";
+  if (currentRound < MaxRounds) {
+    playRound("paper");
+    currentRound++;
+  }
+  if (currentRound === MaxRounds) {
+    document.getElementById("resultatFin").style.display = "block";
+    endGame();
+  }
+});
+
+document.getElementById("scissors").addEventListener("click", function () {
+  document.getElementById("resultat").style.display = "block";
+  if (currentRound < MaxRounds) {
+    playRound("scissors");
+    currentRound++;
+  }
+  if (currentRound === MaxRounds) {
+    document.getElementById("resultatFin").style.display = "block";
+    endGame();
+  }
+});
